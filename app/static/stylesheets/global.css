@@ -1,0 +1,40 @@
+body {
+  background-color: white;
+}
+.custom-btn {
+  border: none;
+  background: #69CC3B;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 10px 6px;
+  width: 100%;
+  color: white;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
+}
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.2);
+}
+.table-condensed {
+  font-size: 10px;
+}
+.ingredientInput {
+  width: 50px;
+  text-align: center;
+}
+.nutrientInput {
+  width: 50px;
+  text-align: center;
+}
+.ratioInput {
+  width: 50px;
+  text-align: center;
+}
+div.img {
+  position: relative;
+  left: 150px;
+}
+div.cc {
+  position: relative;
+  left: 150px;
+}
