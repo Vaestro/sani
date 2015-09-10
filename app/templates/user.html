@@ -1,0 +1,91 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vit Meals - User</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
+    <style>
+
+        .form0 {
+            position: relative;
+            left: 100px;
+            right:100px;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="col-xs-2"></div>
+<div class="col-xs-8">
+<h2>Please input your information</h2>
+
+<p><a href="{{url_for('index')}}"><i class="fa fa-laptop fa-lg">Go to the calculator</i></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+   <a href="{{url_for('user')}}"><i class="fa fa-user fa-lg">User</i></a>
+</p>
+
+
+    <form method="POST">
+
+    <div class="col-xs-6">
+        {{ form.name.label }}
+        {{ form.name(placeholder="Your name", class="form-control") }}
+    </div>
+    <div class="col-xs-6">
+        {{ form.email.label }}
+        {{ form.email(placeholder="example@gmail.com", class="form-control") }}
+    </div>
+    <div class="col-xs-6">
+    {{ form.gender.label }}
+    {{ form.gender(class="radio") }}
+    </div>
+
+    <div class="col-xs-12">
+    {{ form.act.label }}
+    {{ form.act(class="radio") }}
+    </div></p>
+
+    <p>
+    <div class="col-xs-6">
+    {{ form.weight.label }}
+        <div class="input-group">
+        {{ form.weight(class="form-control") }}
+        <div class="input-group-addon">{{ form.weightUnit }}</div>  
+        </div>
+    </div>
+
+    <div class="col-xs-6">
+    {{ form.height.label }}
+    {{ form.height(class="form-control") }}
+    </div></p>
+
+    <p>
+    <div class="col-xs-6">
+    {{ form.goal.label }}
+    {{ form.goal(class="radio") }}
+    </div>
+
+    <div class="col-xs-6">
+    {{ form.age.label }}
+    <div class="input-group">
+    {{ form.age(class="form-control") }}
+    <div class="input-group-addon">years</div>
+    </div></div></p>
+
+    <div class="col-xs-2"></div>
+    <div class="col-xs-8">
+    {{ form.submit(class="btn btn-primary btn-block") }}</p>
+    </div>
+    <div class="col-xs-2"></div>
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,352 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+<html>
+<head>
+    <title>Vit Meals - Calculator</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
+<!-- For Charts -->
+    <script src="http://www.google.com/jsapi"></script>
+    <script src="ck/static/chartkick.js"></script>
+{#
+    <script type="text/javascript" src="http://gabelerner.github.io/canvg/rgbcolor.js"></script> 
+    <script type="text/javascript" src="http://gabelerner.github.io/canvg/StackBlur.js"></script>
+    <script type="text/javascript" src="http://gabelerner.github.io/canvg/canvg.js"></script>           
+#}
+
+    <style>
+        .table-condensed {
+            font-size: 10px;
+        }
+        .ingredientInput {
+            width: 50px;
+            text-align: center;
+        }
+        .nutrientInput {
+            width: 50px;
+            text-align: center;
+        }
+        .ratioInput {
+            width: 50px;
+            text-align: center;
+        }
+
+        div.img {
+            position: relative;
+            left: 150px;
+        }
+
+        div.cc {
+            position: relative;
+            left: 150px;
+        }
+    </style>
+
+</head>
+<body> 
+
+    <script type="text/javascript" src="static/js/GeneticSoylent.js"></script>
+    <script type="text/javascript" src="static/js/Recipe.js"></script>
+    <script type="text/javascript" src="static/js/app.js"></script>
+
+{#
+<canvas id="pieChart" width="100px" height="60px">{% pie_chart pieChartData with id="pieChart" %}</canvas> #}
+
+{% pie_chart pieChartData with id="pieChart2" %}
+
+{#
+<script type="text/javascript">
+var canvas = document.getElementById("pieChart");
+var img    = canvas.toDataURL("image/png");
+document.write('<img src="'+img+'"/>');
+</script>
+#}
+
+<div class="row">
+    <div class="col-xs-4">
+        <div class="img">
+            <a href="{{url_for('user')}}"><img src="static/img/logo.png" height="175" width="175"></a>
+        </div>
+    </div>
+    <div class="col-xs-8>">
+        <br />
+
+<form class="form-inline" align="center">
+    <a href="{{url_for('user')}}"><i class="fa fa-user fa-lg">{{session['name']}}</i></a>
+
+    <label>&nbsp;&nbsp;&nbsp;&nbsp;Generation:</label>
+    <input class="generation form-control input-sm" type="text" style="width: 50px; text-align: center; margin-right: 20px; margin-left: 10px" />
+    <a class="btn btn-primary start-genetic-algorithm" href="#"><i class="fa fa-play"></i></a>
+    <a class="btn btn-primary pause-genetic-algorithm" href="#" style="display: none;"><i class="fa fa-pause"></i></a>
+    <a class="btn btn-default step-genetic-algorithm" href="#"><i class="fa fa-step-forward"></i></a>
+    <a class="btn btn-default reset-genetic-algorithm" href="#"><i class="fa fa-refresh"></i></a>
+</form>
+
+<div class="hahahahaha">
+    <form class="form-inline" align="center">
+        <label>Population:</label>
+        <input class="population form-control input-sm" type="text" style="width: 50px; text-align: center" value="100" />
+        <label style="margin-left: 20px;">Mutation probability:</label>
+        <input class="mutation-probability form-control" type="text" style="text-align: center; width: 50px" value="0.5" />
+        <label style="margin-left: 20px;">Mutation multiplier:</label>
+        <input class="mutation-multiplier form-control" type="text" style="text-align: center; width: 50px" value="0.1" />
+        <label style="margin-left: 20px;">Death rate:</label>
+        <input class="death-rate form-control input-sm" type="text" style="width: 50px; text-align: center" value="0.3" />
+    </form>
+{# <!--           <div class="calculating"><i class="icon-spinner icon-spin icon-large"></i>Calculating...</div>   --> #}
+        <button class="btn btn-default" disabled="disabled" id="clickJSON3">Reserved Button</button>
+        <button class="btn btn-info" id="clickJSON">Use Sample Target 1</button>
+        <button class="btn btn-info" id="clickJSON2">Use Sample Target 2</button>
+</div>
+
+<div class="sasasasasa" style="display:none">
+{% if nutrientMerge %}
+<div class="col-xs-6">
+<p>Calories: {{nutrientMerge.calories}}, Target: {{calories}}</p>
+<p>Carbs: {{nutrientMerge.carbs}}, Ratio: {{ratio.carbs}}%</p>
+<p>Protein: {{nutrientMerge.protein}}, Ratio: {{ratio.protein}}%</p>
+<p>Fat: {{nutrientMerge.fat}}, Ratio: {{ratio.fat}}%  Saturated-fat: {{ratio2['saturated-fat']}}%</p>
+</div>
+<div class="col-xs-12">
+{% for item in ratio2 %}
+{{item}} : {{ratio2[item]}}%  
+{% endfor %}
+</div>
+{% endif %}
+</div>
+
+        </div>
+    </div>
+
+
+<div class="calculating">
+<div class="col-xs-2"></div>
+<div class="col-xs-1"><i class="fa fa-spinner fa-spin fa-4x"></i></div>
+<div class="col-xs-9"><h1>Calculating...Please do not close your browser</h1></div>
+</div>
+
+<div class="submit" style="display:none">
+    <div class="container">
+    <div class="col-xs-8">
+    <h2>Calculation complete, please Click Continue button to save your data.</h2>
+    </div>
+
+<form method="POST">
+
+    <div class="col-xs-12" style="display:none">
+    {{ ingredientform.ingredientJson(placeholder="ingredientJson", class="form-control", id = "ingredientTableJsonVal", rows="3", style="width:100%") }}
+    </div>
+    <div class="col-xs-12" style="display:none">
+    {{ ingredientform.deviation(placeholder="deviation", class="form-control", id = "deviationTable", rows="1", style="width:100%") }}
+    </div>
+    <div class="col-xs-12" style="display:none">
+    {{ ingredientform.nutrient(placeholder="nutrient", class="form-control", id = "nutrientHtmlJson", rows="1", style="width:100%") }}
+    </div>
+    <div class="col-xs-12" style="display:none">
+    {{ ingredientform.nutrient2(placeholder="nutrient2", class="form-control", id = "nutrientHtmlJson2", rows="1", style="width:100%") }}
+    </div>
+
+    <div class="col-xs-4">
+    <br><br>
+    {{ ingredientform.submit(class="btn btn-success btn-block") }}
+    </div>
+</form>
+
+    </div>
+</div>
+
+
+    <div class="row">
+        <div id="ingredientTable" class="col-xs-4"></div>
+        <div id="nutrientTable" class="col-xs-4"></div>
+        <div id="nutrientTableRemainder" class="col-xs-4"></div>
+    </div>
+
+    <p><div id="nutrientHtmlJson"></div></p>
+    <p><div id="nutrientHtmlJson2"></div></p>
+
+<div class="col-xs-12" >
+    <h3>This is the 1st JSON</h3>
+    {{ratioJson1}}
+</div>
+<div class="col-xs-12" >
+    <h3>This is the 2nd JSON</h3>
+    {{ratioJson2}}
+</div>
+
+<div class="container" style="display:none">
+        <h2>Choose Your Own Recipe.</h2>
+        {% if calories %}
+        <h4>By our calculation, your target is shown as below.</h4>
+
+        <p>{"nutrientTargets": {"calories": {{calories}}, "protein": {{protein}}, "fat": {{fat}}, "carbs": {{carbs}}, "name": "{{email}}","gender": "{{gender}}", "age": {{age}} }}</p>
+        {% endif %}
+        <textarea class="form-control" id="inputJSON" rows="1" style="width:100%">
+        {% if calories %}
+        {"nutrientTargets": {"calories": {{calories}}, "protein": {{protein}}, "fat": {{fat}}, "carbs": {{carbs}}, "name": "{{email}}","gender": "{{gender}}", "age": {{age}} }}
+        {% endif %}
+        </textarea> 
+</div>
+
+
+{#
+<!--
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+
+<script type=text/javascript>
+  $(function() {
+    $('a#calculate').bind('click', function() {
+      $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
+        a: $('input[name="a"]').val(),
+        b: $('input[name="b"]').val()
+      }, function(data) {
+        $("#result").text(data.ingredients);
+      });
+      return false;
+    });
+  });
+</script>
+
+<div class="cc">
+<h1>jQuery Example</h1>
+<p><input type=text size=5 name=a> +
+   <input type=text size=5 name=b> =
+   <span id="result">?</span></p>
+<p><a href=# id="calculate">calculate server side</a>
+</p></div>
+
+
+<script type=text/javascript>
+  $(function() {
+    $('a#calculate').bind('click', function() {
+      $.getJSON($SCRIPT_ROOT + '/_json', {
+        ingredients: $('textarea[name="a"]').val()
+      }, function(data) {
+        $("#result").text(data.ingredients);
+      });
+      return false;
+    });
+  });
+</script>
+
+<div class="cc">
+<h1>jQuery Example</h1>
+<p><textarea name=a id="ingredientTableJsonVal" rows="2" style="width:100%"></textarea></p>
+<p><span id="result">?</span></p>
+<p><a href=# id="calculate">calculate server side</a>
+</p></div>
+-->
+#}
+
+ {#      
+<!--        <form>
+             <input type="file" id="inputJSON" />
+             <input type="submit" value="Submit" />
+
+                 var calories = {{ calories | tojson | safe }};
+    var protein =  {{ protein | tojson | safe }};
+    var fat = {{ fat | tojson | safe }};
+    var carbs = {{ carbs | tojson | safe }};
+
+        var UserInput = function() {
+
+        this.calories = {{calories}} || 0;
+        this.protein = {{protein}} || 0;
+        this.fat = {{fat}} || 0;
+        this.carbs = {{carbs}} || 0;
+
+        this.gender = {{gender}} || "Male";
+        this.age = {{age}} || 25;
+    };
+
+        
+        </form>    
+
+                                                                
+    <script type="text/javascript">
+
+    var userJsonToRun = {"nutrientTargets": { "calories": {{calories}},
+     "protein": {{protein}}, "fat": {{fat}}, 
+     "carbs": {{carbs}}, "name": "{{email}}",
+     "gender": {{gender}}, "age": {{age}} }};
+
+    </script>
+    <script type="text/javascript" src="js/defaultJson.js"></script>--> #}   
+
+
+{# <!--       <textarea id="ingredientform" name = "ingredientform" rows="10">
+        <div id="ingredientTableJson" class="col-xs-4"></div>
+    </textarea>     
+     {{ ingredientform.json }}
+    {{ ingredientform.submit }}      
+    {{ wtf.quick_form(ingredientform) }} 
+
+    {{ wtf.quick_form(ingredientform) }}
+    {{ ingredientform.json }}
+    {{ ingredientform.hidden(id='ingredientTableJsonVal') }}
+    {{ ingredientform.submit }}   
+    </div>
+
+<form action="/" method="post">
+    {{ ingredientform.json }}
+    {{ ingredientform.hidden(id='ingredientTableJsonVal') }}
+    {{ ingredientform.submit }}
+</form>
+
+    <div class="col-xs-4">
+    <h3>JSON Here!!!!!!!!!</h3>
+    {{ json }}
+    </div>
+
+<p>{{hiddenform}}</p>   -->   #}
+
+{# 
+<!--
+{{ ingredientform.json(placeholder="json", id = "ingredientTableJsonVal") }}
+{{ ingredientform.submit }}
+
+
+<div class="form-group">
+<input type="hidden" name="hiddenform" class="text-field form-control validate-field required" data-validation-type="neighborhood" id="nbhd" placeholder="Pick One" value="Pick One">
+</div>
+
+        <input id="chag_sort" type="hidden" name="chag_sort">
+        
+        <script type="text/javascript"> 
+            $("#chag_sort").val(sort2);
+        </script>
+--> #}
+{#
+<!-- 
+    <p></p>
+    <div class="container col-xs-12">
+    <h2>What is this?</h2>
+    <p>Genetic Soylent is an attempt to automatically create a Soylent recipe given a list of ingredients and a target nutrient profile.</p>
+    <p>You can play with it by pressing <i class="icon-step-forward"></i> to step to the next generation, <i class="icon-play"></i> to step to next generations automatically and <i class="icon-refresh"></i> to reset the simulation.</p>
+    <p>Original code by nick: <a href="http://github.com/nick/genetic-soylent">http://github.com/nick/genetic-soylent</a></p>
+    <p>This version by 2potatoes: <a href="http://github.com/2potatoes/genetic-soylent">http://github.com/2potatoes/genetic-soylent</a></p>
+    <p>Notes on genetic soylent can be found on <a href="http://spudlent.blogspot.com/search/label/Genetic%20Soylent">2potatoes blog</a>.</p>
+    <h2>How it works</h2>
+    <ul>
+        <li>Generate 100 recipes, each recipe containing a random amount of each ingredient.</li>
+        <li>Score each recipe based on how close all the nutrients are to 100%.</li>
+        <li>Sort the recipes from best to worst.</li>
+        <li>Show the best one in the table above.</li>
+    </ul>
+    <p>On each subsequent 'generation', the following happens:</p>
+    <ul>
+        <li>Remove the worst 30 recipes from the list</li>
+        <li>Create 30 new Child recipes containing ingredient amounts taken from two randomly selected Parent recipes.</li>
+        <li>Ingredient amounts in each Child can also be mutated if the 'mutation probability' is met.</li>
+        <li>A mutation works by taking a random ingredient and increasing or decreasing the amount defined by the 'mutation multiplier'. For example, a mutation multiplier of 0.1 will increase or decrease the amount of an ingredient by 10%.</li>
+        <li>Finally, we re-calculate the scores for each recipe, sort them, and show the best one in the table.</li>
+    </ul>
+
+    </div>
+    -->
+    #}
