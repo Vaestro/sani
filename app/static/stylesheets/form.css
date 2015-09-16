@@ -1,14 +1,15 @@
-h1, input::-webkit-input-placeholder, button {
-  font-family: 'roboto', sans-serif;
-  transition: all 0.3s ease-in-out;
+body {
+  background: url(/static/img/background1.png);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 form {
   box-sizing: border-box;
   width: 100%;
-  margin: 100px auto 0;
-  padding-bottom: 40px;
+  padding: 25px 40px;
   line-height: 25px;
+  background-color: rgba(255, 255, 255, 0.75);
 }
 form h1 {
   box-sizing: border-box;
@@ -67,7 +68,6 @@ input[type="radio"]:checked {
   background: #69CC3B;
 }
 
-
 select {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -81,4 +81,9 @@ select {
 
 select:focus {
     outline: none;
+}
+
+.message {
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 25px 40px;
 }

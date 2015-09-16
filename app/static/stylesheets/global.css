@@ -1,6 +1,57 @@
 body {
   background-color: white;
 }
+
+section.page-wrapper {
+  background: url(/static/img/background2.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+}
+
+.macros-summary {
+  background: rgba(255, 255, 255, 0.75);
+  margin-top: 100px;
+  padding: 25px 50px;
+  text-align: center;
+}
+
+.macros-summary h1 {
+  font-weight: 200;
+}
+.btn-special {
+  border-radius: 50%;
+  border: none;
+	width: 200px;
+	height: 200px;
+  font-size: 20px;
+  background-color: #69CC3B;
+  color: white;
+}
+.navbar {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: transparent;
+  height: 125px;
+}
+.navbar-inverse .navbar-nav li a {
+  color: rgba(255,255,255,0.8);
+}
+.navbar-nav li a {
+  padding-top: 50px;
+  font-size: 16px;
+}
+
+.navbar-brand {
+  float: left;
+}
+.navbar-brand #logo {
+  display: inline-block;
+}
+
 .custom-btn {
   border: none;
   background: #69CC3B;

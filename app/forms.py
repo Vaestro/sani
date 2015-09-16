@@ -9,7 +9,7 @@ class UserForm(Form):
 	name = StringField("Name", default = "John Smith")
 	email = StringField("Email", default = "test@example.com")
 	gender = RadioField("Gender", choices=[("Male","Male"),("Female","Female")], default = "Male")
-	act = RadioField("Which of these describes your daily activity?", 
+	act = SelectField("Which of these describes your daily activity?",
 		     choices=[("Sedentary","Sedentary Lifestyle, Little or No Exercise, Moderate Walking, Desk Job (Away from Home)"),
 		     ("Low","Lightly Active, Exercise or Moderate Sports 2 to 3 Days a Week, Light Jogging or Walking 5 to 7 Days a Week"),
 		     ("Active","Moderately Active, Physical Work, Exercise, or Sports 4 to 5 Days a Week, Construction Laborer"),
@@ -22,7 +22,7 @@ class UserForm(Form):
 		(157.4, "5\'2 - 157.4cm"),(160, "5\'3 - 160cm"),(162.5, "5\'4 - 162.5cm"),
 		(165.1, "5\'5 - 165.1cm"),(167.6, "5\'6 - 167.6cm"),(170.1, "5\'7 - 170.1cm"),
 		(172.7, "5\'8 - 172.7cm"),(175.2, "5\'9 - 175.2cm"),(177.8, "5\'10 - 177.8cm"),
-		(180.3, "5\'11 - 180.3cm"), 
+		(180.3, "5\'11 - 180.3cm"),
 		(182.8, "6\'0 - 182.8cm"),(185.4, "6\'1 - 185.4cm"),(187.9, "6\'2 - 187.9cm"),
 		(190.5, "6\'3 - 190.5cm"),(193.0, "6\'4 - 193.0cm")], default = 180.3)
 
@@ -40,4 +40,5 @@ class IngredientsForm(Form):
 	deviation = TextAreaField("deviation")
 	nutrient = TextAreaField("nutrient")
 	nutrient2 = TextAreaField("nutrient2")
+	orderQuantity = SelectField("Quantity", choices=[(7, "$35.00 - 7 Meals ($5/meal)"), (14, "$59.00 - 14 Meals ($4.25/meal)"), (21, "$84.00 - 21 Meals ($4/meal)")], default = "7")
 	submit = SubmitField('Continue')

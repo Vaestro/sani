@@ -5,6 +5,7 @@ body {
 p {
   margin: 0;
 }
+
 .performance-facts {
   border: 1px solid black;
   margin: 20px 0;
@@ -101,4 +102,11 @@ td:last-child {
 }
 .thin-end {
   border-bottom: 1px solid black;
+}
+#saniPicture {
+  background: url(/static/img/background3.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 50%;
+  width: 100%;
 }

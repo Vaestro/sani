@@ -19,36 +19,19 @@ from flask.ext.sqlalchemy import get_debug_queries
 #app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 #mysql.init_app(app)
 
-############################################################################	
+############################################################################
 #     Charts ################################################################
 import chartkick
 ck = Blueprint('ck_page', __name__, static_folder=chartkick.js(), static_url_path='/static')
 app.register_blueprint(ck, url_prefix='/ck')
 app.jinja_env.add_extension("chartkick.ext.charts")
 
-###########################################################################	
-@app.route('/index', methods=['GET', 'POST'])
-#@login_required
-def index():
+###########################################################################
 
-	ingredientform = IngredientsForm()
-	#age = request.args.get('age', 0, type = int)
-	#if email:
-	#	sb = 1
-	#else:
-	#sb = age
-	if request.method == 'POST':
-		
-		return render_template('index.html', ingredientform = ingredientform)
-
-	elif request.method == 'GET':
-		return render_template('index.html', ingredientform = ingredientform)
-	
 @app.route('/', methods=['GET', 'POST'])
-@app.route('/user', methods=['GET', 'POST'])
 def user():
 	form = UserForm()
-	
+
 	if request.method == 'POST':
 
 		if form.weightUnit.data == "lb":
@@ -83,7 +66,7 @@ def user():
 		TDEE = G * F * BMR
 		if TDEE < 1758:
 			TDEE = 1758
-			 
+
 		protein = weight  * 0.88
 		# Calculate the fat
 		fat = TDEE * 0.25 / 9
@@ -115,9 +98,9 @@ def user():
 			session['carbs'] = carbs
 		elif session['email']:
 			email = session['email']
-			
+
 		session['email'] = email
-		
+
 
 		ingredientform = IngredientsForm()
 		#ingredientJson = json.loads(ingredientform.ingredientJson.data)
@@ -131,7 +114,7 @@ def user():
 		ratioJson1 = {}
 		ratioJson2 = {}
 		pieChartData = {}
-		
+
 		if ingredientJson:
 
 			ingredientJsonDeleteComma = ingredientJson[0:-2] + '}'
@@ -456,7 +439,7 @@ def user():
 			del ratioJson1['monounsaturated-fat']
 ######################## Second Json File ############################
 			ratioJson2 = nutrientMerge.copy()
-			ratioJson2.update(ratio)   
+			ratioJson2.update(ratio)
 ######################## Database #####################################
 
 			#pieChartData = {'carbs': ratio['carbs'], 'protein': ratio['protein'], 'fat': ratio['fat']}
@@ -466,12 +449,12 @@ def user():
 			pieChartData = {'carbs': nutrientMerge['carbs'] * 4, 'protein': nutrientMerge['protein'] * 4, 'fat': nutrientMerge['fat'] * 9}
 
 			newUser = User(name = session['name'],
-			email = session['email'], 
-			gender = session['gender'], 
-			act = session['act'], 
+			email = session['email'],
+			gender = session['gender'],
+			act = session['act'],
 			weight = session['weight'],
-			height = session['height'], 
-			goal = session['goal'], 
+			height = session['height'],
+			goal = session['goal'],
 			age = session['age'],
 			calories = session['calories'],
 			protein = session['protein'],
@@ -479,7 +462,7 @@ def user():
 			carbs = session['carbs'],
 			ingredientJson = ingredientJsonDeleteComma,
 			brown = brown,
-			protein_blend = protein_blend, 
+			protein_blend = protein_blend,
 			carb_blend = carb_blend,
 			fat_blend = fat_blend,
 			deviation = ingredientform.deviation.data,
@@ -494,18 +477,32 @@ def user():
 			db.session.add(newUser)
 			db.session.commit()
 
-		return render_template('index.html', calories = TDEE,  protein = protein, 
+		return render_template('index.html', calories = TDEE,  protein = protein,
 			fat = fat, carbs = carbs, gender = form.gender.data, age = form.age.data,
-			email = email, ingredientform = ingredientform, 
+			email = email, ingredientform = ingredientform,
 			ingredientJsonLoads = ingredientJsonLoads, nutrientMerge = nutrientMerge,
-			ratio = ratio, ratio2 = ratio2, ratioJson1 = str(ratioJson1), 
-			ratioJson2 = str(ratioJson2), 
+			ratio = ratio, ratio2 = ratio2, ratioJson1 = str(ratioJson1),
+			ratioJson2 = str(ratioJson2),
 			pieChartData = pieChartData)
 
 	elif request.method == 'GET':
 		return render_template('user.html', form=form)
 
+@app.route('/order', methods=['GET', 'POST'])
+def index():
 
+	ingredientform = IngredientsForm()
+	#age = request.args.get('age', 0, type = int)
+	#if email:
+	#	sb = 1
+	#else:
+	#sb = age
+	if request.method == 'POST':
+
+		return render_template('index.html', ingredientform = ingredientform)
+
+	elif request.method == 'GET':
+		return render_template('index.html', ingredientform = ingredientform)
 
 #Test the connection of MySQL
 @app.route('/testdb')

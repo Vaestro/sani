@@ -72,7 +72,7 @@ GeneticSoylent.prototype.nextGeneration = function() {
         $('.hahahahaha').hide();
         $('.sasasasasa').show();
     }
-    
+
     if (this.autoGenerate) {
         var self = this;
         setTimeout(function() {
@@ -128,36 +128,29 @@ GeneticSoylent.prototype.defaultRatios = function() {
 GeneticSoylent.prototype.render = function() {
 
     var ingredientHtml = _.template([
-      '<table class="table table-condensed">',
-        '<tr>',
-          '<th>Ingredient</th>',
-          '<th class="text-center">Min</th>',
-          '<th class="text-center">Amount</th>',
-          '<th class="text-center">Max</th>',
-          // '<% _.each(nutrientKeys, function(nutrient, index) { %>',
-          //   '<th class="text-center"><%= nutrient %></th>',
-          // '<% }); %>',
-        '</tr>',
-        '<% _.each(ingredients, function(ingredient, idx) { %>',
-          '<tr>',
-            '<td class="text-left"><%= ingredient.name %></td>',
-            '<td class="text-center"><input name="<%= idx %>_._minAmount" class="ingredientInput" value="<%= ingredient["minAmount"] %>"></input></td>',
-            // amounts[idx] is rounded to the nearest whole since we assume that inputs are
-            // given in the smallest measurable units
-            '<td class="text-center"><%= Math.round(amounts[idx]) %></td>',
-            '<td class="text-center"><input name="<%= idx %>_._maxAmount" class="ingredientInput" value="<%= ingredient["maxAmount"] %>"></input></td>',
-            // '<% _.each(nutrientKeys, function(nutrient, index) { %>',
-            //   '<td class="text-center"><%= (ingredient[nutrient] * Math.round(amounts[idx])).toFixed(2) %></td>',
-            // '<% }); %>',
-          '</tr>',
+      '<% var orderedIngredients = [] %>',
+      '<% _.each(ingredients, function(ingredient, idx) { %>',
+        '<% orderedIngredients.push([ ingredient.name, Math.round(amounts[idx]) ]) %>',
+      '<% }); %>',
+      '<div class="orderedIngredients">',
+
+        '<% orderedIngredients.sort(function(a, b) { %>',
+          '<% if (a[1] === b[1]) { %>',
+            '<% return 0 %>',
+          '<% } else { %>',
+            '<% return (a[1] > b[1]) ? -1 : 1 %>',
+          '<% } %>',
         '<% }); %>',
-      '</table>',
-      '<h3 align="center">Deviation: <%= -completenessScore.toFixed(1) %></h3>',
-      '<p align="center">Lower deviations are better.</p>',
+
+        'Ingredients: ',
+        '<% _.each(orderedIngredients, function(ingredient, idx) { %>',
+          '<%= ingredient[0] %>, ',
+        '<% }); %>',
+      '</div>',
     ].join(''));
-/**************************** TO SHOW DEVIATION **********************************/    
+/**************************** TO SHOW DEVIATION **********************************/
     var deviationHtml = _.template('<%= -completenessScore.toFixed(1) %>');
-    
+
     //alert(deviationHtml);
 
     $('#deviationTable').html(deviationHtml({
@@ -178,6 +171,8 @@ GeneticSoylent.prototype.render = function() {
 
         $('.calculating').hide();
         $('.submit').show();
+        $('.nutrient-label').show();
+
         testGeneticSoylent.autoGenerate = false;
         $('.pause-genetic-algorithm').hide();
         $('.start-genetic-algorithm').show();
