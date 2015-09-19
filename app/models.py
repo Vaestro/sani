@@ -10,7 +10,7 @@ db = SQLAlchemy()
 #import hashlib
 
 class User(db.Model):
-	
+
 	__tablename__ = 'user'
 	user_id = db.Column(db.Integer, primary_key = True)
 	name = db.Column(db.String(255))
@@ -43,7 +43,7 @@ class User(db.Model):
 	ratioJson1 = db.Column(db.String(255))
 	ratioJson2 = db.Column(db.String(255))
 
-	def __init__(self, name, email, gender, act, weight, height, goal, age, calories, protein, 
+	def __init__(self, name, email, gender, act, weight, height, goal, age, calories, protein,
 		fat, carbs, ingredientJson, brown, protein_blend, carb_blend, fat_blend
 		,deviation, nutrient, nutrient2, nutrientMerge, ratioJson1, ratioJson2):
 		self.name = name
@@ -69,3 +69,13 @@ class User(db.Model):
 		self.nutrientMerge = nutrientMerge
 		self.ratioJson1 = ratioJson1
 		self.ratioJson2 = ratioJson2
+
+class SaniOrder(db.Model):
+	__tablename__ = 'saniorder'
+	uuid = db.Column(db.String(255), primary_key = True)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
+	user = db.relationship(User)
+	email = db.Column(db.String(255))
+	amount = db.Column(db.Integer)
+	quantity = db.Column(db.Integer)
+	subscription = db.Column(db.Boolean, default=False)

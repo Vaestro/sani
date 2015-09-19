@@ -40,5 +40,6 @@ class IngredientsForm(Form):
 	deviation = TextAreaField("deviation")
 	nutrient = TextAreaField("nutrient")
 	nutrient2 = TextAreaField("nutrient2")
-	orderQuantity = SelectField("Quantity", choices=[(7, "$35.00 - 7 Meals ($5/meal)"), (14, "$59.00 - 14 Meals ($4.25/meal)"), (21, "$84.00 - 21 Meals ($4/meal)")], default = "7")
+	quantity = SelectField("Quantity", choices=[(7, "$35.00 - 7 Meals ($5/meal)"), (14, "$59.00 - 14 Meals ($4.25/meal)"), (21, "$84.00 - 21 Meals ($4/meal)")], default = "7")
+	subscribe = BooleanField("Subscribe and save")
 	submit = SubmitField('Continue')

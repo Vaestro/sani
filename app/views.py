@@ -1,10 +1,12 @@
-#import os
+import os
 import math
+import uuid
 from flask import render_template, flash, redirect, session, url_for, request, g, send_from_directory, make_response, jsonify, Blueprint
+
 #from flask.ext.login import login_user, logout_user, current_user, login_required, current_app
 from app import app, db#, lm
 from forms import UserForm, IngredientsForm
-from models import User
+from models import User, SaniOrder
 import json
 ######ADDED########################################
 #from flaskext.mysql import MySQL
@@ -21,14 +23,40 @@ from flask.ext.sqlalchemy import get_debug_queries
 
 ############################################################################
 #     Charts ################################################################
+import stripe
+
+stripe_keys = {
+  'secret_key': os.environ['SECRET_KEY'],
+  'publishable_key': os.environ['PUBLISHABLE_KEY']
+}
+
+stripe.api_key = stripe_keys['secret_key']
+
 import chartkick
 ck = Blueprint('ck_page', __name__, static_folder=chartkick.js(), static_url_path='/static')
 app.register_blueprint(ck, url_prefix='/ck')
 app.jinja_env.add_extension("chartkick.ext.charts")
 
 ###########################################################################
+@app.route('/index', methods=['GET', 'POST'])
+#@login_required
+def index():
+
+	ingredientform = IngredientsForm()
+	#age = request.args.get('age', 0, type = int)
+	#if email:
+	#	sb = 1
+	#else:
+	#sb = age
+	if request.method == 'POST':
+
+		return render_template('index.html', ingredientform = ingredientform)
+
+	elif request.method == 'GET':
+		return render_template('index.html', ingredientform = ingredientform)
 
 @app.route('/', methods=['GET', 'POST'])
+@app.route('/user', methods=['GET', 'POST'])
 def user():
 	form = UserForm()
 
@@ -483,26 +511,44 @@ def user():
 			ingredientJsonLoads = ingredientJsonLoads, nutrientMerge = nutrientMerge,
 			ratio = ratio, ratio2 = ratio2, ratioJson1 = str(ratioJson1),
 			ratioJson2 = str(ratioJson2),
-			pieChartData = pieChartData)
+			pieChartData = pieChartData, key=stripe_keys['publishable_key'])
 
 	elif request.method == 'GET':
 		return render_template('user.html', form=form)
 
-@app.route('/order', methods=['GET', 'POST'])
-def index():
+@app.route('/buy', methods=['POST'])
+def buy():
+    quantity = request.form['quantity']
+    amount = request.form['amount']
+    email = request.form['email']
+    user = User.query.get(email)
+    print user
 
-	ingredientform = IngredientsForm()
-	#age = request.args.get('age', 0, type = int)
-	#if email:
-	#	sb = 1
-	#else:
-	#sb = age
-	if request.method == 'POST':
+    customer = stripe.Customer.create(
+        email='customer@example.com',
+        card=request.form['stripeToken']
+    )
 
-		return render_template('index.html', ingredientform = ingredientform)
+    charge = stripe.Charge.create(
+        customer=customer.id,
+        amount=amount,
+        currency='usd',
+        description='Sani Checkout'
+    )
 
-	elif request.method == 'GET':
-		return render_template('index.html', ingredientform = ingredientform)
+    order = SaniOrder(
+    uuid=str(uuid.uuid4()),
+    user=user,
+    email=email,
+    quantity = quantity,
+    amount = amount
+    )
+
+    db.session.add(order)
+    db.session.commit()
+
+    return render_template('buy.html', amount=amount)
+
 
 #Test the connection of MySQL
 @app.route('/testdb')

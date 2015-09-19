@@ -1,4 +1,10 @@
+@font-face {
+    font-family: Brandon;
+    src: url(/static/fonts/Brandon_reg.otf);
+}
+
 body {
+  font-family: Brandon;
   background-color: white;
 }
 
@@ -24,10 +30,6 @@ section.page-wrapper {
   font-weight: 200;
 }
 .btn-special {
-  border-radius: 50%;
-  border: none;
-	width: 200px;
-	height: 200px;
   font-size: 20px;
   background-color: #69CC3B;
   color: white;
