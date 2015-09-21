@@ -2,7 +2,7 @@ $(function() {
   $('select#quantity').change(function() {
     var amount;
     var quantity = parseInt($(this).val());
-    $('input#subscribe').is(':checked') ? subscription_discount = 0.84 : subscription_discount = 1;
+    $('input#subscribe').is(':checked') ? subscription_discount = 0.85 : subscription_discount = 1;
 
     if (quantity == 7) {
       amount = quantity * 500 * subscription_discount
@@ -16,16 +16,6 @@ $(function() {
     }
     $('input#amount').val(amount)
   });
-
-  // $('input#subscribe').click(function() {
-  //
-  //   if ($('input#subscribe').is(':checked')) {
-  //     $('.order-amount').show();
-  //
-  //   } else {
-  //     $('.order-amount').hide();
-  //   }
-  // });
 
   $('button').click(function() {
       alert($('input#amount').val());
