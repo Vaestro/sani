@@ -23,6 +23,7 @@ class User(db.Model):
 	age = db.Column(db.Integer)
 	timestamp = db.Column(db.DateTime, index = True, default = datetime.now)
 	ingredientJson = db.Column(db.String(255))
+	# orders = db.relationship('SaniOrder', backref='user', lazy='dynamic')
 
 	calories = db.Column(db.Float)
 	protein = db.Column(db.Float)

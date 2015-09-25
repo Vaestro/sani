@@ -13,11 +13,11 @@ app = Flask(__name__)
 app.config.from_object('config')
 #moment = Moment(app)
 db = SQLAlchemy(app)
-###################### http://code.tutsplus.com/tutorials/intro-to-flask-signing-in-and-out--net-29982
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1lovesasuke@localhost/sani'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://devuser:devpwd@localhost/sani'
-#This is for Pythonanywhere, delete the # when use
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://lishiyi:devpwd@lishiyi.mysql.pythonanywhere-services.com/lishiyi$vit'
+#This is for AWS, delete the # when use
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://sanilife:sanilife@sanidb.c2pz7qitscgg.us-west-2.rds.amazonaws.com:3306/sanidb'
+
+# Uncomment the line below if you want to work with a local DB
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 
  ######################################################################
 from models import db
@@ -25,6 +25,7 @@ db.init_app(app)
 with app.app_context():
         # Extensions like Flask-SQLAlchemy now know what the "current" app
         # is while within this block. Therefore, you can now run........
+        db.drop_all()
         db.create_all()
 #######################
 

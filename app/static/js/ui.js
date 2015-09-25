@@ -1,4 +1,14 @@
 $(function() {
+  $('input#name').change(function(){
+    if($('input#name').val()) {
+      var name = $(this).val();
+      $('.message').html("<h3>Hey " + name + ", Using USDA approved guidelines we will calculate your ideal caloric intake. From there, we will use the most recent medical research to figure out how much protein, carbs & fats you need.</h3>");
+      $('.message').show();
+    } else {
+      $('.message').hide();
+    }
+    
+  })
   $('select#quantity').change(function() {
     var amount;
     var quantity = parseInt($(this).val());

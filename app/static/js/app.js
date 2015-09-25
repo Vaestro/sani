@@ -7,7 +7,7 @@ $(function(){
 
         $('.calculating').hide();
     });
-    
+
 */
     $('.start-genetic-algorithm').click(function(){
         $(this).hide();
@@ -201,7 +201,7 @@ $(function(){
       "id": "5581b2621df750831932a316",
       "maxAmount": 14 * 8,
       "minAmount": 14 * 8
-    },  
+    },
     {
       "persistedAsin": "B004VLVG0M",
       "name": "Sea Salt",
@@ -1019,7 +1019,7 @@ $(function(){
      "id": "55ba5a653ba722ee0d954be9",
      "maxAmount": 29 * 100,
      "minAmount": 29 * 100
-   },  
+   },
     {
       "persistedAsin": "",
       "name": "Spinach (powdered)",
@@ -1334,7 +1334,7 @@ $(function(){
       "id": "5581b2621df750831932a30e",
       "maxAmount": 200 * 40,
       "minAmount": 0 * 40
-    }, 
+    },
     {
      "persistedAsin": "",
      "name": "Protein Blend",
@@ -1579,9 +1579,9 @@ $(function(){
             // get the cost of the item per unit of measure
             ingredients[key]["cost"] = ingredients[key]["item_cost"] / ingredients[key]["container_size"];
         });
-      
-        // Add a maxAmount here for each ingredient 
-        
+
+        // Add a maxAmount here for each ingredient
+
 
         return ingredients;
     }
@@ -1683,7 +1683,7 @@ $(function(){
 
 //1st Case, Male and < 50 years old.
             if(nutrition.age >= 19 && nutrition.age <= 50){
-                
+
                 tempNutrition = {
                         "soluble-fiber_max": 0,
                         "soluble-fiber": 0,
@@ -1868,7 +1868,7 @@ $(function(){
         else if(nutrition.gender == "Female"){
 
             if(nutrition.age >= 19 && nutrition.age <= 50){
-                
+
                 tempNutrition = {
                         "soluble-fiber_max": 0,
                         "soluble-fiber": 0,
@@ -2051,7 +2051,7 @@ $(function(){
             }
 
         }
-        
+
 
         $.each(nutrition, function(key, value){
 

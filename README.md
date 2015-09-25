@@ -1,7 +1,7 @@
 # SANI  (Extends Nutrient-Calculator) <img src="https://github.com/lishiyi/VIT/blob/master/app/static/img/logo.png" width="50" height="50" />
 *The Website for [SANI](http://www.mysani.com/).*
 
-## LISHIYI Decription
+## Decription
 * Based on [Nutrient-Calculator](https://github.com/lishiyi/Nutrient-Calculator), I create a server and database for data
 calculationg and saving.
 

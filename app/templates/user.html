@@ -18,14 +18,44 @@
 </head>
 
 <body>
+  <script type="text/javascript" src="static/js/ui.js"></script>
+
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://mysani.com">
+          <img src="static/img/logo.png" height="100" width="100">
+        </a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="http://www.mysani.com/">Discover</a></li>
+          <li><a href="http://www.mysani.com/buy/">Create</a></li>
+          <li><a href="http://www.mysani.com/recipes/">Recipes</a></li>
+          <li><a href="http://www.mysani.com/blog/">Blog</a></li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+
   <div class="container">
     <h2>My Sani Order</h2>
 
     <div class="row">
-      <div class="col-md-6 col-md-push-6 message">
-        <h3>
-          Using USDA approved guidelines we will calculate your ideal caloric intake. From there, we will use the most recent medical research to figure out how much protein, carbs & fats you need.
-        </h3>
+      <div class="col-md-6 col-md-push-6">
+        <div class="message" style="display:none">
+        </div>
       </div>
       <div class="col-md-6 col-md-pull-6">
         <form method="POST">
