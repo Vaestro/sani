@@ -1,28 +1,34 @@
 import os
 import math
 import uuid
-from flask import render_template, flash, redirect, session, url_for, request, g, send_from_directory, make_response, jsonify, Blueprint
-
-#from flask.ext.login import login_user, logout_user, current_user, login_required, current_app
-from app import app, db#, lm
+from flask import Flask, render_template, flash, redirect, session, url_for, request, g, send_from_directory, make_response, jsonify, Blueprint
+from flask.ext.sqlalchemy import SQLAlchemy, get_debug_queries
+from flask.ext.bootstrap import Bootstrap
 from forms import UserForm, IngredientsForm
 from models import User, SaniOrder
 import json
-######ADDED########################################
-#from flaskext.mysql import MySQL
 import requests
-from flask.ext.sqlalchemy import get_debug_queries
-######ADDED########################################
-#MySQL configuration.
-#mysql = MySQL()
-#app.config['MYSQL_DATABASE_USER'] = 'devuser'
-#app.config['MYSQL_DATABASE_PASSWORD'] = 'devpwd'
-#app.config['MYSQL_DATABASE_DB'] = 'vit'
-#app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-#mysql.init_app(app)
 
-############################################################################
-#     Charts ################################################################
+app = Flask(__name__)
+app.config.from_object('config')
+
+db = SQLAlchemy(app)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://sanilife:sanilife@sanidb.c2pz7qitscgg.us-west-2.rds.amazonaws.com:3306/sanidb'
+
+# Uncomment the line below if you want to work with a local DB
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+
+ ######################################################################
+from models import db
+
+db.init_app(app)
+with app.app_context():
+        # Extensions like Flask-SQLAlchemy now know what the "current" app
+        # is while within this block. Therefore, you can now run........
+        db.drop_all()
+        db.create_all()
+
 import stripe
 
 stripe_keys = {
@@ -32,12 +38,8 @@ stripe_keys = {
 
 stripe.api_key = stripe_keys['secret_key']
 
-import chartkick
-ck = Blueprint('ck_page', __name__, static_folder=chartkick.js(), static_url_path='/static')
-app.register_blueprint(ck, url_prefix='/ck')
-app.jinja_env.add_extension("chartkick.ext.charts")
+bootstrap = Bootstrap(app)
 
-###########################################################################
 @app.route('/index', methods=['GET', 'POST'])
 #@login_required
 def index():
@@ -567,13 +569,5 @@ def internal_error(error):
     db.session.rollback()
     return render_template('500.html'), 500
 
-#@app.route('/_add_numbers')
-#def add_numbers():
-#    a = request.args.get('a', 0, type = int)
-#    b = request.args.get('b', 0, type = int)
-#    return jsonify(result = a + b)
-
-#@app.route('/_json')
-#def _json():
-#    ingredients = request.args.get('ingredients', 0, type = int)
-#    return jsonify(ingredients)
+if __name__ == '__main__':
+    app.run(debug=True)

@@ -1,13 +1,8 @@
-#from app import db, app
 from flask.ext.sqlalchemy import SQLAlchemy
 from datetime import datetime
-#import bleach
-#from markdown import markdown
 import flask.ext.whooshalchemy as whooshalchemy
 
 db = SQLAlchemy()
-#from hashlib import md5
-#import hashlib
 
 class User(db.Model):
 
