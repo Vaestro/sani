@@ -20,12 +20,13 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://sanilife:sanilife@sanid
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 
  ######################################################################
+from models import db
 
-# db.init_app(app)
-# with app.app_context():
-#         # Extensions like Flask-SQLAlchemy now know what the "current" app
-#         # is while within this block. Therefore, you can now run........
-#         db.create_all()
+db.init_app(app)
+with app.app_context():
+        # Extensions like Flask-SQLAlchemy now know what the "current" app
+        # is while within this block. Therefore, you can now run........
+        db.create_all()
 
 import stripe
 
