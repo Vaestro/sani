@@ -7,8 +7,8 @@ $(function() {
     } else {
       $('.message').hide();
     }
-    
   })
+
   $('select#quantity').change(function() {
     var amount;
     var quantity = parseInt($(this).val());
@@ -25,9 +25,5 @@ $(function() {
       $('.order-amount').html("<h1>$" + Math.round(amount * .01) + " monthly</h1>");
     }
     $('input#amount').val(amount)
-  });
-
-  $('button').click(function() {
-      alert($('input#amount').val());
   });
 });
