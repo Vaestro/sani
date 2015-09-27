@@ -9,6 +9,11 @@ $(function() {
     }
   })
 
+  $('select#act').click(function(){
+    $('.message').empty();
+    $('.message').html("<h3><strong>Active:</strong> Little or No Exercise, Moderate Walking, Desk Job (Away from Home) </br><strong>Lightly Active:</strong>, Exercise or Mdoerate Sports 2 to 3 days a Week, Light Jogging or Walking 5 to 7 Days a Week </br><strong>Moderately Active:</strong> Physical Work, Exercise, or Sports 4 to 5 Days a Week, Construction Laborer</br><strong>Very Active:</strong> Heavy Physical work, Exercise, or Sports 6 to 7 Days a Week, Hard Laborer</h3>");
+    $('.message').show();
+  })
   $('select#quantity').change(function() {
     var amount;
     var quantity = parseInt($(this).val());
