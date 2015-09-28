@@ -380,10 +380,9 @@
 
           <div class="col-md-6">
           <select class="form-control" id="quantity" name="quantity" placeholder="quantity"><option selected="" value="7">$35.00 - 7 Meals ($5/meal)</option><option value="14">$59.00 - 14 Meals ($4.25/meal)</option><option value="21">$84.00 - 21 Meals ($4/meal)</option></select>
-          <input class="form-control" id="subscribe" name="subscribe" type="checkbox" value="subscription_active">Subscribe and save
+          <label class="checkbox-inline"><input type="checkbox" id="subscribe" name="subscribe" value="subscription_active">Subscribe and save</label>
           <input id="amount" type="hidden" value="3500" name="amount">
           <input id="email" type="hidden" value={{session['email']}} name="email">
-          <button type="button">what is hidden field?</button>
 
           </div>
           <div class="col-md-6">
