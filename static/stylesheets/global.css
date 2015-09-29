@@ -22,7 +22,7 @@ section.page-wrapper {
 .macros-summary {
   background: rgba(255, 255, 255, 0.75);
   margin-top: 100px;
-  padding: 25px 50px;
+  padding: 25px 50px 75px 50px;
   text-align: center;
 }
 

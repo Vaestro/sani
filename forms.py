@@ -24,9 +24,9 @@ class UserForm(Form):
 		(172.7, "5\'8 - 172.7cm"),(175.2, "5\'9 - 175.2cm"),(177.8, "5\'10 - 177.8cm"),
 		(180.3, "5\'11 - 180.3cm"),
 		(182.8, "6\'0 - 182.8cm"),(185.4, "6\'1 - 185.4cm"),(187.9, "6\'2 - 187.9cm"),
-		(190.5, "6\'3 - 190.5cm"),(193.0, "6\'4 - 193.0cm")], default = 180.3)
+		(190.5, "6\'3 - 190.5cm"),(193.0, "6\'4 - 193.0cm"),(195.8, "6\'5 - 195.8cm"),(198.1, "6\'6 - 198.1cm"),(200.7, "6\'7 - 200.7cm")], default = 180.3)
 
-	goal = RadioField("What are your weight goals?", \
+	goal = RadioField("Do you have a weight goal?", \
 		     choices=[("Gain","Gain Weight"),("Maintain","Maintain Weight"),\
 		     ("Lose","Lose Weight")], default="Maintain")
 
