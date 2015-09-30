@@ -62,28 +62,26 @@
 
           {{ form.name(placeholder="Name", type="text", required="") }}
           {{ form.email(placeholder="Email", required="") }}
-          <div class="row">
-            <div class="col-sm-4 col-xs-4">
+
             {{ form.gender.label }}
-          </div>
-          <div class="col-sm-8 col-xs-4">
+    
             {{ form.gender(class="radio-inline") }}
-          </div>
-          </div>
+    
 
           {{ form.act(placeholder="-- Select My Activity Level --", required="")}}
 
           <div class="row">
             <div class="col-sm-10">
             {{ form.weight(placeholder="Weight", required="")}}
-          </div>
-          <div class="col-sm-2">
-            {{ form.weightUnit(default="lb", required="")}}
-          </div>
+            </div>
+            <div class="col-sm-2">
+              {{ form.weightUnit(default="lb", required="")}}
+            </div>
           </div>
 
           {{ form.height.label }} {{ form.height(required="")}}
-          {{ form.goal.label }} {{ form.goal(class="radio-inline") }} {{ form.age(placeholder="Age", type="number", required="") }} {{ form.submit(class="btn custom-btn") }}</p>
+          {{ form.goal.label }} {{ form.goal(class="radio-inline") }}
+          {{ form.age(placeholder="Age", type="number", required="") }} {{ form.submit(class="btn custom-btn") }}</p>
         </form>
 
       </div>

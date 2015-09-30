@@ -110,3 +110,7 @@ td:last-child {
   height: 50%;
   width: 100%;
 }
+
+.order-item {
+  padding: 10px 0;
+}

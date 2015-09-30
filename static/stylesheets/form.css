@@ -47,15 +47,6 @@ input:focus::-webkit-input-placeholder, input:valid::-webkit-input-placeholder {
   transform: translateY(-20px);
   visibility: visible !important;
 }
-ul#gender {
-  display: inline;
-  position: relative;
-}
-
-.radio-inline li  {
-  display: inline !important;
-  padding: 0 25px;
-}
 
 .radio-inline li input {
   display: inline !important;

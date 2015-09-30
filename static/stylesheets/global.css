@@ -63,6 +63,7 @@ section.page-wrapper {
   width: 100%;
   color: white;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
+  max-width: 500px;
 }
 button:hover {
   transform: translateY(-3px);
