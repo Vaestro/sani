@@ -93,3 +93,9 @@ div.cc {
   position: relative;
   left: 150px;
 }
+.icon {
+  font-size: 30px;
+}
+.confirmation {
+  text-align: center;
+}

@@ -1,54 +1,15 @@
-{% import "bootstrap/wtf.html" as wtf %}
+{% extends "layout.html" %}
+{% block links %}
+<link rel="stylesheet" type="text/css" href="static/stylesheets/form.css">
 
-<!DOCTYPE html>
-<html>
+{% endblock %}
 
-<head>
-  <title>Vit Meals - User</title>
-  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="static/stylesheets/global.css">
-  <link rel="stylesheet" type="text/css" href="static/stylesheets/form.css">
+{% block scripts %}
 
-  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
+{% endblock %}
+{% block content %}
 
-
-</head>
-
-<body>
-  <script type="text/javascript" src="static/js/ui.js"></script>
-
-  <nav class="navbar navbar-default">
-    <div class="container">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="http://mysani.com">
-          <img src="static/img/logo.png" height="100" width="100">
-        </a>
-      </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="//www.mysani.com/">Discover</a></li>
-          <li><a href="/">Create</a></li>
-          <li><a href="//www.mysani.com/recipes/">Recipes</a></li>
-          <li><a href="//www.mysani.com/blog/">Blog</a></li>
-        </ul>
-      </div>
-      <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
-  </nav>
-
+<script type="text/javascript" src="static/js/ui.js"></script>
   <div class="container">
     <h2>My Sani Order</h2>
 
@@ -64,9 +25,9 @@
           {{ form.email(placeholder="Email", required="") }}
 
             {{ form.gender.label }}
-    
+
             {{ form.gender(class="radio-inline") }}
-    
+
 
           {{ form.act(placeholder="-- Select My Activity Level --", required="")}}
 
@@ -88,7 +49,4 @@
 
     </div>
   </div>
-
-</body>
-
-</html>
+  {% endblock %}

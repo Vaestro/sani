@@ -1,13 +1,14 @@
-{% extends "layout.html" %} {% block content %}
+{% extends "layout.html" %}
+{% block content %}
 <div class="container">
-  <h1>Thanks for your order, it should ship in the next 3-4 days.</h1>
-  <ul>
-    <li>
-      <a href="https://www.facebook.com/vitteam?fref=ts" class="icon fa fa-facebook"></a>
+  <div class="row">
+    <div class="confirmation">
+      <h1>Thanks for your order, it should ship in the next 3-4 days.</h1>
+      <a href="https://www.facebook.com/vitteam?fref=ts" class="icon fa fa-facebook fa-5x"></a>
       <span class="label">Facebook</span>
-      <a href="https://twitter.com/mysani_" class="icon fa fa-twitter"></a>
+      <a href="https://twitter.com/mysani_" class="icon fa fa-twitter fa-5x"></a>
       <span class="label">Twitter</span>
-    </li>
-    <ul>
+    </div>
+  </div>
 </div>
 {% endblock %}
