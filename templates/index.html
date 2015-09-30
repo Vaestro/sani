@@ -1,14 +1,8 @@
-{% extends "layout.html" %}
-{% block links %}
-<link rel="stylesheet" type="text/css" href="static/stylesheets/nutrition_label.css">
-
-{% endblock %}
-
-{% block scripts %}
+{% extends "layout.html" %} {% block links %}
+<link rel="stylesheet" type="text/css" href="static/stylesheets/nutrition_label.css"> {% endblock %} {% block scripts %}
 <script src="//checkout.stripe.com/checkout.js"></script>
 
-{% endblock %}
-{% block content %}
+{% endblock %} {% block content %}
 
 <script type="text/javascript" src="static/js/GeneticSoylent.js"></script>
 <script type="text/javascript" src="static/js/Recipe.js"></script>
@@ -67,8 +61,6 @@
 </div>
 
 <div class="container">
-
-
   <div class="row nutrient-label" style="display:none">
 
     <div class="col-md-4">
@@ -360,50 +352,56 @@
       </section>
     </div>
     <div class="col-md-8">
-      <div id="saniPicture"></div>
       <h1>{{session['name'].partition(' ')[0].upper()}}'S PERSONALIZED SANI</h1>
-      <h5>Free shipping, personalized nutrition plan and multiple flavors.
-        <h5>
-          <form action="/buy" method="POST">
+      <div id="saniPicture"></div>
+      <div id="ingredientTable"></div>
 
-            <div style="display:none">
-              {{ ingredientform.ingredientJson(placeholder="ingredientJson", class="form-control", id = "ingredientTableJsonVal", rows="3", style="width:100%") }}
-            </div>
-            <div style="display:none">
-              {{ ingredientform.deviation(placeholder="deviation", class="form-control", id = "deviationTable", rows="1", style="width:100%") }}
-            </div>
-            <div style="display:none">
-              {{ ingredientform.nutrient(placeholder="nutrient", class="form-control", id = "nutrientHtmlJson", rows="1", style="width:100%") }}
-            </div>
-            <div style="display:none">
-              {{ ingredientform.nutrient2(placeholder="nutrient2", class="form-control", id = "nutrientHtmlJson2", rows="1", style="width:100%") }}
-            </div>
+      <h3>Free shipping, personalized nutrition plan and multiple flavors.</h3>
+      <form action="/buy" method="POST">
 
-            <div class="col-md-6">
-              <select class="form-control checkout order-item" id="quantity" name="quantity" placeholder="quantity">
-                <option selected="" value="7">$35.00 - 7 Meals ($5/meal)</option>
-                <option value="14">$59.00 - 14 Meals ($4.25/meal)</option>
-                <option value="21">$84.00 - 21 Meals ($4/meal)</option>
-              </select>
-              <label class="checkbox-inline order-item">
-                <input type="checkbox" id="subscribe" class="checkout" name="subscribe" value="subscription_active">Subscribe and save</label>
-              <input id="amount" type="hidden" value="3500" name="amount">
-              <input id="email" type="hidden" value={{session[ 'email']}} name="email">
+        <div style="display:none">
+          {{ ingredientform.ingredientJson(placeholder="ingredientJson", class="form-control", id = "ingredientTableJsonVal", rows="3", style="width:100%") }}
+        </div>
+        <div style="display:none">
+          {{ ingredientform.deviation(placeholder="deviation", class="form-control", id = "deviationTable", rows="1", style="width:100%") }}
+        </div>
+        <div style="display:none">
+          {{ ingredientform.nutrient(placeholder="nutrient", class="form-control", id = "nutrientHtmlJson", rows="1", style="width:100%") }}
+        </div>
+        <div style="display:none">
+          {{ ingredientform.nutrient2(placeholder="nutrient2", class="form-control", id = "nutrientHtmlJson2", rows="1", style="width:100%") }}
+        </div>
 
-              <div class="order-amount order-item">
-              </div>
-              <div id="script-div" class="order-item">
-                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="{{ key }}" data-description="Sani Order" data-shipping-address=t rue data-email={ {session[ 'email']}} data-locale="auto">
-                </script>
-              </div>
-              <div id="ingredientTable"></div>
+        <div class="col-md-6">
+          <select class="checkout order-item" id="quantity" name="quantity" placeholder="quantity">
+            <option selected="" value="7">$35.00 - 7 Meals ($5/meal)</option>
+            <option value="14">$59.00 - 14 Meals ($4.25/meal)</option>
+            <option value="21">$84.00 - 21 Meals ($4/meal)</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <select class="order-item" id="flavors" name="flavors" placeholder="flavors">
+            <option selected="" value="cocoa">Cocoa</option>
+            <option value="peanut butter">Peanut Butter</option>
+            <option value="coffee">Coffee</option>
+          </select>
+        </div>
+        <div class="col-md-6">
 
-            </div>
+        <label class="checkbox-inline order-item">
+          <input type="checkbox" id="subscribe" class="checkout" name="subscribe" value="subscription_active">Subscribe and save (cancel anytime)</label>
+        <input id="amount" type="hidden" value="3500" name="amount">
+        <input id="email" type="hidden" value={{session[ 'email']}} name="email">
 
-
-          </form>
-
-
+        <div class="order-amount order-item"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="script-div" class="order-item">
+          <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="{{ key }}" data-description="Sani Order" data-shipping-address=t rue data-email={ {session[ 'email']}} data-locale="auto">
+          </script>
+        </div>
+      </div>
+      </form>
     </div>
   </div>
 </div>
