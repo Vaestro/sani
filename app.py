@@ -61,7 +61,7 @@ def index():
 def user():
 	form = UserForm()
 
-	if request.method == 'POST':
+	if form.validate():
 
 		if form.weightUnit.data == "lb":
 			weight = form.weight.data
@@ -514,7 +514,7 @@ def user():
 			ratioJson2 = str(ratioJson2),
 			pieChartData = pieChartData, key=stripe_keys['publishable_key'])
 
-	elif request.method == 'GET':
+	else:
 		return render_template('user.html', form=form)
 
 @app.route('/buy', methods=['POST'])

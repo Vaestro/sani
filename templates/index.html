@@ -1,13 +1,10 @@
-{% extends "layout.html" %} {% block links %}
+{% extends "layout.html" %}
+{% block links %}
 <link rel="stylesheet" type="text/css" href="static/stylesheets/nutrition_label.css"> {% endblock %} {% block scripts %}
 <script src="//checkout.stripe.com/checkout.js"></script>
 
-{% endblock %} {% block content %}
-
-<script type="text/javascript" src="static/js/GeneticSoylent.js"></script>
-<script type="text/javascript" src="static/js/Recipe.js"></script>
-<script type="text/javascript" src="static/js/app.js"></script>
-<script type="text/javascript" src="static/js/ui.js"></script>
+{% endblock %}
+{% block content %}
 
 <div class="row" style="display:none">
   <div class="col-xs-4">
@@ -414,7 +411,7 @@
   <div class="macros-summary">
 
     <h1>
-      Thanks for that info! By getting to know you a bit, using a little math we calculated your ideal caloric needs using the Mifflin- St Jear formula, the industry standard used by most nutrionists.
+      Thanks for that info! By getting to know you a bit, using a little math we calculated your ideal caloric needs using the Mifflin- St Jeor formula, the industry standard used by most nutrionists.
     </h1>
     <div class="calculating">
       <div class="col-md-1"><i class="fa fa-spinner fa-spin fa-4x"></i></div>
@@ -619,4 +616,13 @@
 
     </div>
     -->
-#} {% endblock %}
+#}
+{% block scripts %}
+
+<script type="text/javascript" src="static/js/GeneticSoylent.js"></script>
+<script type="text/javascript" src="static/js/Recipe.js"></script>
+<script type="text/javascript" src="static/js/app.js"></script>
+<script type="text/javascript" src="static/js/ui.js"></script>
+{% endblock %}
+
+{% endblock %}
