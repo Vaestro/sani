@@ -4,6 +4,7 @@ import uuid
 from flask import Flask, render_template, flash, redirect, session, url_for, request, g, send_from_directory, make_response, jsonify, Blueprint
 from flask.ext.sqlalchemy import SQLAlchemy, get_debug_queries
 from flask.ext.bootstrap import Bootstrap
+from flask_wtf.csrf import CsrfProtect
 from forms import UserForm, IngredientsForm
 from models import User, SaniOrder
 import json
@@ -11,7 +12,7 @@ import requests
 
 app = Flask(__name__)
 app.config.from_object('config')
-
+CsrfProtect(app)
 db = SQLAlchemy(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://sanilife:sanilife@sanidb.c2pz7qitscgg.us-west-2.rds.amazonaws.com:3306/sanidb'
@@ -61,7 +62,7 @@ def index():
 def user():
 	form = UserForm()
 
-	if form.validate():
+	if form.validate_on_submit():
 
 		if form.weightUnit.data == "lb":
 			weight = form.weight.data

@@ -17,9 +17,9 @@ class UserForm(Form):
 		     ("Very Active","Very Active")])
 	weight = FloatField("Weight",  [validators.Required("Please enter your weight(lb)."), validators.NumberRange(min=50,max=500,message="Please enter a valid weight")])
 	#height = FloatField("Height(cm)",  [validators.Required("Please enter your height(cm).")])
-	weightUnit = SelectField("Unit", choices=[("lb", "lb"), ("kg", "kg")])
+	weightUnit = SelectField("Unit", choices=[("lb", "lb"), ("kg", "kg")], default="lb")
 
-	height = SelectField("Height", choices=[(152.4, "5\'0 - 152.4cm"), (154.9, "5\'1 - 154.9cm"),
+	height = SelectField("Height", coerce=float, choices=[(152.4, "5\'0 - 152.4cm"), (154.9, "5\'1 - 154.9cm"),
 		(157.4, "5\'2 - 157.4cm"),(160, "5\'3 - 160cm"),(162.5, "5\'4 - 162.5cm"),
 		(165.1, "5\'5 - 165.1cm"),(167.6, "5\'6 - 167.6cm"),(170.1, "5\'7 - 170.1cm"),
 		(172.7, "5\'8 - 172.7cm"),(175.2, "5\'9 - 175.2cm"),(177.8, "5\'10 - 177.8cm"),
