@@ -9,6 +9,7 @@ from forms import UserForm, IngredientsForm
 from models import User, SaniOrder
 import json
 import requests
+from IPython import embed
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -43,17 +44,10 @@ bootstrap = Bootstrap(app)
 @app.route('/index', methods=['GET', 'POST'])
 #@login_required
 def index():
-
 	ingredientform = IngredientsForm()
-	#age = request.args.get('age', 0, type = int)
-	#if email:
-	#	sb = 1
-	#else:
-	#sb = age
+
 	if request.method == 'POST':
-
 		return render_template('index.html', ingredientform = ingredientform)
-
 	elif request.method == 'GET':
 		return render_template('index.html', ingredientform = ingredientform)
 
@@ -62,7 +56,7 @@ def index():
 def user():
 	form = UserForm()
 
-	if form.validate_on_submit():
+	if request.method == 'POST':
 
 		if form.weightUnit.data == "lb":
 			weight = form.weight.data
@@ -131,9 +125,8 @@ def user():
 
 		session['email'] = email
 
-
 		ingredientform = IngredientsForm()
-		#ingredientJson = json.loads(ingredientform.ingredientJson.data)
+		# embed()
 		#hiddenform = ingredientform.hidden.data
 		ingredientJson = ingredientform.ingredientJson.data
 
@@ -456,7 +449,6 @@ def user():
 
 				ratio2[item] = int(nutrientMerge[item] * 100 // tempNutrition[item])
 
-
 			ratio['fiber'] = int(nutrientMerge['fiber'] * 100 // tempNutrition['fiber'])
 			ratio['saturated-fat'] = ratio2['saturated-fat']
 ######################## First Json FIle ##################################
@@ -502,7 +494,6 @@ def user():
 			ratioJson1 = str(ratioJson1),
 			ratioJson2 = str(ratioJson2),
 			)
-
 
 			db.session.add(newUser)
 			db.session.commit()

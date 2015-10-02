@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="col-md-6 col-md-pull-6">
-      <form data-parsley-validate method="POST">
+      <form id="userform" data-parsley-validate method="POST">
         {{ form.csrf_token }} {{ form.name(placeholder="Name", type="text", required="") }} {{ form.email(placeholder="Email", required="") }} {{ form.gender.label }} {{ form.gender(class="radio-inline") }} {{ form.act(placeholder="-- Select My Activity Level
         --", required="")}}
 
