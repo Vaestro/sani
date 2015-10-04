@@ -64,7 +64,9 @@ GeneticSoylent.prototype.nextGeneration = function() {
  *
  */
     if(this.currentGeneration > 100){
+      debugger;
         $('.calculating').hide();
+        $('.nutrient-label').show();
         $('.submit').show();
         testGeneticSoylent.autoGenerate = false;
         $('.pause-genetic-algorithm').hide();
@@ -168,10 +170,10 @@ GeneticSoylent.prototype.render = function() {
  *
  */
     if(this.recipes[0].completenessScore == 0){
-
+      debugger;
         $('.calculating').hide();
-        $('.submit').show();
         $('.nutrient-label').show();
+        $('.submit').show();
 
         testGeneticSoylent.autoGenerate = false;
         $('.pause-genetic-algorithm').hide();

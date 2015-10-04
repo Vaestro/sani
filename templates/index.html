@@ -3,6 +3,9 @@
 <link rel="stylesheet" type="text/css" href="static/stylesheets/nutrition_label.css">
 {% endblock %}
 {% block content %}
+<script type="text/javascript" src="static/js/GeneticSoylent.js"></script>
+<script type="text/javascript" src="static/js/Recipe.js"></script>
+<script type="text/javascript" src="static/js/app.js"></script>
 
 <div class="row" style="display:none">
   <div class="col-xs-4">
@@ -55,8 +58,9 @@
   </div>
 </div>
 
+<div class="nutrient-label" style="display:none">
 <div class="container">
-  <div class="row nutrient-label" style="display:none">
+  <div class="row">
 
     <div class="col-md-4">
       <section class="performance-facts">
@@ -393,13 +397,18 @@
       </div>
       <div class="col-md-6">
         <div id="script-div" class="order-item">
-          <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="{{ key }}" data-description="Sani Order" data-shipping-address=t rue data-email={ {session[ 'email']}} data-locale="auto">
-          </script>
+          <script src="//checkout.stripe.com/checkout.js" class="stripe-button"
+                  data-key="{{ key }}"
+                  data-description="Sani Order"
+                  data-shipping-address=true
+                  data-email="{{ session['email'] }}"
+                  data-locale="auto"></script>
         </div>
       </div>
       </form>
     </div>
   </div>
+</div>
 </div>
 
 {% else %}
@@ -617,14 +626,10 @@
     </div>
     -->
 #}
-{% block scripts %}
-
-<script type="text/javascript" src="static/js/GeneticSoylent.js"></script>
-<script type="text/javascript" src="static/js/Recipe.js"></script>
-<script type="text/javascript" src="static/js/app.js"></script>
-<script type="text/javascript" src="static/js/ui.js"></script>
-<script src="//checkout.stripe.com/checkout.js"></script>
 
 {% endblock %}
+{% block scripts %}
+
+<script type="text/javascript" src="static/js/ui.js"></script>
 
 {% endblock %}

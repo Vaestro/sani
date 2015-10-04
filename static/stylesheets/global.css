@@ -96,6 +96,6 @@ div.cc {
 .icon {
   font-size: 30px;
 }
-.confirmation {
+.confirmation, .error {
   text-align: center;
 }
