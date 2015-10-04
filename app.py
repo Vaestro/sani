@@ -9,7 +9,6 @@ from forms import UserForm, IngredientsForm
 from models import User, SaniOrder
 import json
 import requests
-from IPython import embed
 
 app = Flask(__name__)
 app.config.from_object('config')
