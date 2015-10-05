@@ -532,7 +532,7 @@ def buy():
     print user
 
     customer = stripe.Customer.create(
-        email='customer@example.com',
+        email=email,
         card=request.form['stripeToken']
     )
 
