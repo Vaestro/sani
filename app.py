@@ -531,8 +531,8 @@ def buy():
 
     try:
       customer = stripe.Customer.create(
-          email=email,
-          card=request.form['stripeToken']
+          source=request.form['stripeToken'],
+          email=email
       )
 
       charge = stripe.Charge.create(
