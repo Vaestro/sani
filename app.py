@@ -7,10 +7,10 @@ from flask.ext.bootstrap import Bootstrap
 from flask_wtf.csrf import CsrfProtect
 from flask_sslify import SSLify
 from forms import UserForm, IngredientsForm
-from models import User, SaniOrder, db
+from models import User, db
 import json
 import requests
-import stripe
+# import stripe
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -29,14 +29,15 @@ db.init_app(app)
 with app.app_context():
     # Extensions like Flask-SQLAlchemy now know what the "current" app
     # is while within this block. Therefore, you can now run........
+    db.drop_all()
     db.create_all()
 
-stripe_keys = {
-    'secret_key': os.environ['SECRET_KEY'],
-    'publishable_key': os.environ['PUBLISHABLE_KEY']
-}
-
-stripe.api_key = stripe_keys['secret_key']
+# stripe_keys = {
+#     'secret_key': os.environ['SECRET_KEY'],
+#     'publishable_key': os.environ['PUBLISHABLE_KEY']
+# }
+#
+# stripe.api_key = stripe_keys['secret_key']
 
 bootstrap = Bootstrap(app)
 
@@ -513,42 +514,42 @@ def user():
                                    email=email, ingredientform=ingredientform,
                                    ingredientJsonLoads=ingredientJsonLoads, nutrientMerge=nutrientMerge,
                                    ratio=ratio, ratio2=ratio2, ratioJson1=str(ratioJson1),
-                                   ratioJson2=str(ratioJson2), key=stripe_keys['publishable_key'])
+                                   ratioJson2=str(ratioJson2))
 
     else:
         return render_template('user.html', form=form)
 
 
-@app.route('/buy', methods=['POST'])
-def buy():
-    quantity = request.form['quantity']
-    amount = request.form['amount']
-    email = request.form['email']
-    token = request.form['stripeToken']
-
-    customer = stripe.Customer.create(
-        email=email,
-        source=token
-    )
-
-    charge = stripe.Charge.create(
-        customer=customer.id,
-        amount=amount,
-        currency='usd',
-        description='Sani Checkout'
-    )
-
-    order = SaniOrder(
-        uuid=str(uuid.uuid4()),
-        email=email,
-        quantity=quantity,
-        amount=amount
-    )
-
-    db.session.add(order)
-    db.session.commit()
-
-    return render_template('buy.html', amount=amount)
+# @app.route('/buy', methods=['POST'])
+# def buy():
+    # quantity = request.form['quantity']
+    # amount = request.form['amount']
+    # email = request.form['email']
+    # token = request.form['stripeToken']
+    #
+    # customer = stripe.Customer.create(
+    #     email=email,
+    #     source=token
+    # )
+    #
+    # charge = stripe.Charge.create(
+    #     customer=customer.id,
+    #     amount=amount,
+    #     currency='usd',
+    #     description='Sani Checkout'
+    # )
+#
+#     order = SaniOrder(
+#         uuid=str(uuid.uuid4()),
+#         email=email,
+#         quantity=quantity,
+#         amount=amount
+#     )
+#
+#     db.session.add(order)
+#     db.session.commit()
+#
+#     return render_template('buy.html', amount=amount)
 
 # Test the connection of MySQL
 @app.route('/testdb')

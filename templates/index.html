@@ -89,7 +89,7 @@
             </tr>
             <tr>
               <th colspan="2">
-                <b>Total Carbohydrate  </b> {{(nutrientMerge.carbs//3)|int}} mg
+                <b>Total Carbohydrate  </b> {{(nutrientMerge.carbs//3)|int}} g
               </th>
               <td>
                 <b>{{ratio2['carbs']//3|int}}%</b>
@@ -99,7 +99,7 @@
               <td class="blank-cell">
               </td>
               <th>
-                Dietary Fiber {{(nutrientMerge.fiber//3)|int}} mg
+                Dietary Fiber {{(nutrientMerge.fiber//3)|int}} g
               </th>
               <td>
                 <b>{{ratio2['fiber']//3|int}}%</b>
@@ -107,7 +107,7 @@
             </tr>
             <tr>
               <th colspan="2">
-                <b>Protein </b> {{(nutrientMerge.protein//3)|int}} mg
+                <b>Protein </b> {{(nutrientMerge.protein//3)|int}} g
               </th>
               <td>
                 <b>{{ratio2['protein']//3|int}}%</b>
@@ -115,7 +115,7 @@
             </tr>
             <tr>
               <th colspan="2">
-                <b>Total Fat </b> {{(nutrientMerge.fat//3)|int}} mg
+                <b>Total Fat </b> {{(nutrientMerge.fat//3)|int}} g
               </th>
               <td>
                 <b>{{ratio2['fat']//3 - 10|int}}%</b>
@@ -125,7 +125,7 @@
               <td class="blank-cell">
               </td>
               <th>
-                Saturated Fat {{(nutrientMerge['saturated-fat']//3)|int}} mg
+                Saturated Fat {{(nutrientMerge['saturated-fat']//3)|int}} g
               </th>
               <td>
                 <b>{{ratio2['saturated-fat']//3|int}}%</b>
@@ -133,7 +133,7 @@
             </tr>
             <tr>
               <th colspan="2">
-                <b>Sodium  </b> {{(nutrientMerge['sodium']//3)|int}} mg
+                <b>Sodium  </b> {{(nutrientMerge['sodium']//3)|int}} g
               </th>
               <td>
                 <b>{{ratio2['sodium']//3}}%</b>
@@ -142,7 +142,7 @@
             <tr>
               <tr class="thick-end">
                 <th colspan="2">
-                  <b>Cholesterol</b> 0 mg
+                  <b>Cholesterol</b> 0 g
                 </th>
                 <td>
                 </td>
@@ -356,20 +356,7 @@
       <div id="ingredientTable"></div>
 
       <h3>Free shipping, personalized nutrition plan and multiple flavors.</h3>
-      <form action="/buy" method="POST">
-
-        <div style="display:none">
-          {{ ingredientform.ingredientJson(placeholder="ingredientJson", class="form-control", id = "ingredientTableJsonVal", rows="3", style="width:100%") }}
-        </div>
-        <div style="display:none">
-          {{ ingredientform.deviation(placeholder="deviation", class="form-control", id = "deviationTable", rows="1", style="width:100%") }}
-        </div>
-        <div style="display:none">
-          {{ ingredientform.nutrient(placeholder="nutrient", class="form-control", id = "nutrientHtmlJson", rows="1", style="width:100%") }}
-        </div>
-        <div style="display:none">
-          {{ ingredientform.nutrient2(placeholder="nutrient2", class="form-control", id = "nutrientHtmlJson2", rows="1", style="width:100%") }}
-        </div>
+      <!-- <form action="/buy" method="POST">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
 
         <div class="col-md-6">
@@ -395,20 +382,13 @@
         <input id="email" type="hidden" value={{session[ 'email']}} name="email">
 
         <div class="order-amount order-item"></div>
-      </div>
+      </div> -->
       <div class="col-md-6">
-        <div id="script-div" class="order-item">
-          <script src="//checkout.stripe.com/checkout.js" class="stripe-button"
-                  data-key="{{ key }}"
-                  data-description="Sani Order"
-                  data-shipping-address=true
-                  data-email="{{ session['email'] }}"
-                  data-locale="auto"></script>
-        </div>
-        <a href='https://www.expeditedssl.com/simple-ssl-scanner/scan?target_domain=build.mysani.com' target='_blank'><img src='https://www.expeditedssl.com/ssl-secure-badge.png'  alt='Expedited SSL Scanner'></a>
+        <a href="https://app.moonclerk.com/pay/2050dbrpay9"><img alt=“Buy mySani” src="https://s3.amazonaws.com/moonclerk/buttons/buy-now.png" /></a>
+        <!-- <a href='https://www.expeditedssl.com/simple-ssl-scanner/scan?target_domain=build.mysani.com' target='_blank'><img src='https://www.expeditedssl.com/ssl-secure-badge.png'  alt='Expedited SSL Scanner'></a> -->
       </div>
       </form>
-    </div>
+    <!-- </div> -->
   </div>
 </div>
 </div>
