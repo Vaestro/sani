@@ -5,14 +5,17 @@ from flask import Flask, render_template, flash, redirect, session, url_for, req
 from flask.ext.sqlalchemy import SQLAlchemy, get_debug_queries
 from flask.ext.bootstrap import Bootstrap
 from flask_wtf.csrf import CsrfProtect
+from flask_sslify import SSLify
 from forms import UserForm, IngredientsForm
-from models import User, SaniOrder
+from models import User, SaniOrder, db
 import json
 import requests
+import stripe
 
 app = Flask(__name__)
 app.config.from_object('config')
 CsrfProtect(app)
+sslify = SSLify(app)
 db = SQLAlchemy(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://sanilife:sanilife@sanidb.c2pz7qitscgg.us-west-2.rds.amazonaws.com:3306/sanidb'
@@ -21,15 +24,12 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://sanilife:sanilife@sanid
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 
 ######################################################################
-from models import db
 
 db.init_app(app)
 with app.app_context():
     # Extensions like Flask-SQLAlchemy now know what the "current" app
     # is while within this block. Therefore, you can now run........
     db.create_all()
-
-import stripe
 
 stripe_keys = {
     'secret_key': os.environ['SECRET_KEY'],
@@ -39,7 +39,6 @@ stripe_keys = {
 stripe.api_key = stripe_keys['secret_key']
 
 bootstrap = Bootstrap(app)
-
 
 @app.route('/index', methods=['GET', 'POST'])
 #@login_required
@@ -510,14 +509,11 @@ def user():
                 db.session.commit()
 
             return render_template('index.html', calories=TDEE,  protein=protein,
-                                   fat=fat, carbs=carbs, gender=session[
-                                       'gender'], age=session['age'],
+                                   fat=fat, carbs=carbs, gender=session['gender'], age=session['age'],
                                    email=email, ingredientform=ingredientform,
                                    ingredientJsonLoads=ingredientJsonLoads, nutrientMerge=nutrientMerge,
-                                   ratio=ratio, ratio2=ratio2, ratioJson1=str(
-                                       ratioJson1),
-                                   ratioJson2=str(ratioJson2),
-                                   pieChartData=pieChartData, key=stripe_keys['publishable_key'])
+                                   ratio=ratio, ratio2=ratio2, ratioJson1=str(ratioJson1),
+                                   ratioJson2=str(ratioJson2), key=stripe_keys['publishable_key'])
 
     else:
         return render_template('user.html', form=form)
@@ -528,63 +524,31 @@ def buy():
     quantity = request.form['quantity']
     amount = request.form['amount']
     email = request.form['email']
+    token = request.form['stripeToken']
 
-    try:
-      customer = stripe.Customer.create(
-          source=request.form['stripeToken'],
-          email=email
-      )
+    customer = stripe.Customer.create(
+        email=email,
+        source=token
+    )
 
-      charge = stripe.Charge.create(
-          customer=customer.id,
-          amount=amount,
-          currency='usd',
-          description='Sani Checkout'
-      )
+    charge = stripe.Charge.create(
+        customer=customer.id,
+        amount=amount,
+        currency='usd',
+        description='Sani Checkout'
+    )
 
-      order = SaniOrder(
-          uuid=str(uuid.uuid4()),
-          email=email,
-          quantity=quantity,
-          amount=amount
-      )
+    order = SaniOrder(
+        uuid=str(uuid.uuid4()),
+        email=email,
+        quantity=quantity,
+        amount=amount
+    )
 
-      db.session.add(order)
-      db.session.commit()
+    db.session.add(order)
+    db.session.commit()
 
-      return render_template('buy.html', amount=amount)
-      pass
-    except stripe.error.CardError, e:
-      # Since it's a decline, stripe.error.CardError will be caught
-      body = e.json_body
-      err  = body['error']
-
-      print "Status is: %s" % e.http_status
-      print "Type is: %s" % err['type']
-      print "Code is: %s" % err['code']
-      # param is '' in this case
-      print "Param is: %s" % err['param']
-      print "Message is: %s" % err['message']
-    except stripe.error.RateLimitError, e:
-      # Too many requests made to the API too quickly
-      pass
-    except stripe.error.InvalidRequestError, e:
-      # Invalid parameters were supplied to Stripe's API
-      pass
-    except stripe.error.AuthenticationError, e:
-      # Authentication with Stripe's API failed
-      # (maybe you changed API keys recently)
-      pass
-    except stripe.error.APIConnectionError, e:
-      # Network communication with Stripe failed
-      pass
-    except stripe.error.StripeError, e:
-      # Display a very generic error to the user, and maybe send
-      # yourself an email
-      pass
-    except Exception, e:
-      # Something else happened, completely unrelated to Stripe
-      pass
+    return render_template('buy.html', amount=amount)
 
 # Test the connection of MySQL
 @app.route('/testdb')
