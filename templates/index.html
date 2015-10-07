@@ -1,8 +1,5 @@
-{% extends "layout.html" %}
-{% block links %}
-<link rel="stylesheet" type="text/css" href="static/stylesheets/nutrition_label.css">
-{% endblock %}
-{% block content %}
+{% extends "layout.html" %} {% block links %}
+<link rel="stylesheet" type="text/css" href="static/stylesheets/nutrition_label.css"> {% endblock %} {% block content %}
 <script type="text/javascript" src="static/js/GeneticSoylent.js"></script>
 <script type="text/javascript" src="static/js/Recipe.js"></script>
 <script type="text/javascript" src="static/js/app.js"></script>
@@ -59,304 +56,306 @@
 </div>
 
 <div class="nutrient-label" style="display:none">
-<div class="container">
-  <div class="row">
+  <div class="container">
+    <div class="row">
 
-    <div class="col-md-4">
-      <section class="performance-facts">
-        </tr>
-        <header class="performance-facts__header">
-          <h1 class="performance-facts__title">Nutrition Facts (per meal)</h1>
-        </header>
-        <table class="performance-facts__table">
-          <thead>
-            <tr>
-              <th colspan="3" class="small-info">
-                Amount Per Meal
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th colspan="2">
-                <b>Calories  </b> {{(nutrientMerge.calories//3)|int}}
-              </th>
-            </tr>
-            <tr class="thick-row">
-              <td colspan="3" class="small-info">
-                <b>% Daily Value*</b>
-              </td>
-            </tr>
-            <tr>
-              <th colspan="2">
-                <b>Total Carbohydrate  </b> {{(nutrientMerge.carbs//3)|int}} g
-              </th>
-              <td>
-                <b>{{ratio2['carbs']//3|int}}%</b>
-              </td>
-            </tr>
-            <tr>
-              <td class="blank-cell">
-              </td>
-              <th>
-                Dietary Fiber {{(nutrientMerge.fiber//3)|int}} g
-              </th>
-              <td>
-                <b>{{ratio2['fiber']//3|int}}%</b>
-              </td>
-            </tr>
-            <tr>
-              <th colspan="2">
-                <b>Protein </b> {{(nutrientMerge.protein//3)|int}} g
-              </th>
-              <td>
-                <b>{{ratio2['protein']//3|int}}%</b>
-              </td>
-            </tr>
-            <tr>
-              <th colspan="2">
-                <b>Total Fat </b> {{(nutrientMerge.fat//3)|int}} g
-              </th>
-              <td>
-                <b>{{ratio2['fat']//3 - 10|int}}%</b>
-              </td>
-            </tr>
-            <tr>
-              <td class="blank-cell">
-              </td>
-              <th>
-                Saturated Fat {{(nutrientMerge['saturated-fat']//3)|int}} g
-              </th>
-              <td>
-                <b>{{ratio2['saturated-fat']//3|int}}%</b>
-              </td>
-            </tr>
-            <tr>
-              <th colspan="2">
-                <b>Sodium  </b> {{(nutrientMerge['sodium']//3)|int}} g
-              </th>
-              <td>
-                <b>{{ratio2['sodium']//3}}%</b>
-              </td>
-            </tr>
-            <tr>
-              <tr class="thick-end">
-                <th colspan="2">
-                  <b>Cholesterol</b> 0 g
+      <div class="col-md-4">
+        <section class="performance-facts">
+          </tr>
+          <header class="performance-facts__header">
+            <h1 class="performance-facts__title">Nutrition Facts (per meal)</h1>
+          </header>
+          <table class="performance-facts__table">
+            <thead>
+              <tr>
+                <th colspan="3" class="small-info">
+                  Amount Per Meal
                 </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th colspan="2">
+                  <b>Calories  </b> {{(nutrientMerge.calories//3)|int}}
+                </th>
+              </tr>
+              <tr class="thick-row">
+                <td colspan="3" class="small-info">
+                  <b>% Daily Value*</b>
+                </td>
+              </tr>
+              <tr>
+                <th colspan="2">
+                  <b>Total Carbohydrate  </b> {{(nutrientMerge.carbs//3)|int}} g
+                </th>
+                <td>
+                  <b>{{ratio2['carbs']//3|int}}%</b>
+                </td>
+              </tr>
+              <tr>
+                <td class="blank-cell">
+                </td>
+                <th>
+                  Dietary Fiber {{(nutrientMerge.fiber//3)|int}} g
+                </th>
+                <td>
+                  <b>{{ratio2['fiber']//3|int}}%</b>
+                </td>
+              </tr>
+              <tr>
+                <th colspan="2">
+                  <b>Protein </b> {{(nutrientMerge.protein//3)|int}} g
+                </th>
+                <td>
+                  <b>{{ratio2['protein']//3|int}}%</b>
+                </td>
+              </tr>
+              <tr>
+                <th colspan="2">
+                  <b>Total Fat </b> {{(nutrientMerge.fat//3)|int}} g
+                </th>
+                <td>
+                  <b>{{ratio2['fat']//3 - 10|int}}%</b>
+                </td>
+              </tr>
+              <tr>
+                <td class="blank-cell">
+                </td>
+                <th>
+                  Saturated Fat {{(nutrientMerge['saturated-fat']//3)|int}} g
+                </th>
+                <td>
+                  <b>{{ratio2['saturated-fat']//3|int}}%</b>
+                </td>
+              </tr>
+              <tr>
+                <th colspan="2">
+                  <b>Sodium  </b> {{(nutrientMerge['sodium']//3)|int}} g
+                </th>
+                <td>
+                  <b>{{ratio2['sodium']//3}}%</b>
+                </td>
+              </tr>
+              <tr>
+                <tr class="thick-end">
+                  <th colspan="2">
+                    <b>Cholesterol</b> 0 g
+                  </th>
+                  <td>
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+
+          <table class="performance-facts__table--grid">
+            <tbody id="otherNutrients">
+            </tbody>
+            <tbody id="vitamins">
+              <tr>
+                <td>
+                  Calcium
+                </td>
+                <td>
+                  {{ratio2['calcium']//3}}%
+                </td>
+                <td>
+                  Vitamin A
+                </td>
+                <td>
+
+                  {{ratio2['vitamin_a']//3}}%
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Chloride
+                </td>
+                <td>
+                  {{ratio2['chloride']//3}}%
+                </td>
+                <td>
+                  Vitamin B6
+                </td>
+                <td>
+
+                  {{ratio2['vitamin_b6']//3}}%
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Chromium
+                </td>
+                <td>
+                  {{ratio2['chromium']//3}}%
+                </td>
+                <td>
+                  Vitamin B12
+                </td>
+                <td>
+
+                  {{ratio2['vitamin_b12']//3}}%
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Copper
+                </td>
+                <td>
+                  {{ratio2['copper']//3}}%
+                </td>
+                <td>
+                  Vitamin C
+                </td>
+                <td>
+
+                  {{ratio2['vitamin_c']//3}}%
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Iodine
+                </td>
+                <td>
+                  {{ratio2['iodine']//3}}%
+                </td>
+                <td>
+                  Vitamin D
+                </td>
+                <td>
+
+                  {{ratio2['vitamin_d']//3}}%
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Iron
+                </td>
+                <td>
+                  {{ratio2['iron']//3}}%
+                </td>
+                <td>
+                  Vitamin E
+                </td>
+                <td>
+
+                  {{ratio2['vitamin_e']//3}}%
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Magnesium
+                </td>
+                <td>
+                  {{ratio2['magnesium']//3}}%
+                </td>
+                <td>
+                  Vitamin K
+                </td>
+                <td>
+
+                  {{ratio2['vitamin_k']//3}}%
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Manganese
+                </td>
+                <td>
+                  {{ratio2['manganese']//3}}%
+                </td>
+                <td>
+                  Riboflavin
+                </td>
+                <td>
+
+                  {{ratio2['riboflavin']//3}}%
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Molybdenum
+                </td>
+                <td>
+                  {{ratio2['molybdenum']//3}}%
+                </td>
+                <td>
+                  Niacin
+                </td>
+                <td>
+
+                  {{ratio2['niacin']//3}}%
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Phosphorus
+                </td>
+                <td>
+                  {{ratio2['phosphorus']//3}}%
+                </td>
+                <td>
+                  Folate
+                </td>
+                <td>
+
+                  {{ratio2['folate']//3}}%
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Selenium
+                </td>
+                <td>
+                  {{ratio2['selenium']//3}}%
+                </td>
+                <td>
+                  Pantothenic
+                </td>
+                <td>
+
+                  {{ratio2['pantothenic']//3}}%
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Sulfur
+                </td>
+                <td>
+                  {{ratio2['sulfur']//3}}%
+                </td>
+                <td>
+                  Biotin
+                </td>
+                <td>
+                  {{ratio2['biotin']//3}}%
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Zinc
+                </td>
+                <td>
+                  {{ratio2['zinc']//3}}%
+                </td>
+                <td>
+                </td>
                 <td>
                 </td>
               </tr>
-          </tbody>
-        </table>
+            </tbody>
 
-        <table class="performance-facts__table--grid">
-          <tbody id="otherNutrients">
-          </tbody>
-          <tbody id="vitamins">
-            <tr>
-              <td>
-                Calcium
-              </td>
-              <td>
-                {{ratio2['calcium']//3}}%
-              </td>
-              <td>
-                Vitamin A
-              </td>
-              <td>
+          </table>
+        </section>
+      </div>
+      <div class="col-md-8">
+        <h1>{{session['name'].partition(' ')[0].upper()}}'S PERSONALIZED SANI</h1>
+        <h4>This is your custom nutrition label per meal. We can make adjustments before shipping it to you.</h4>
+        <div id="saniPicture"></div>
+        <div id="ingredientTable"></div>
 
-                {{ratio2['vitamin_a']//3}}%
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Chloride
-              </td>
-              <td>
-                {{ratio2['chloride']//3}}%
-              </td>
-              <td>
-                Vitamin B6
-              </td>
-              <td>
-
-                {{ratio2['vitamin_b6']//3}}%
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Chromium
-              </td>
-              <td>
-                {{ratio2['chromium']//3}}%
-              </td>
-              <td>
-                Vitamin B12
-              </td>
-              <td>
-
-                {{ratio2['vitamin_b12']//3}}%
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Copper
-              </td>
-              <td>
-                {{ratio2['copper']//3}}%
-              </td>
-              <td>
-                Vitamin C
-              </td>
-              <td>
-
-                {{ratio2['vitamin_c']//3}}%
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Iodine
-              </td>
-              <td>
-                {{ratio2['iodine']//3}}%
-              </td>
-              <td>
-                Vitamin D
-              </td>
-              <td>
-
-                {{ratio2['vitamin_d']//3}}%
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Iron
-              </td>
-              <td>
-                {{ratio2['iron']//3}}%
-              </td>
-              <td>
-                Vitamin E
-              </td>
-              <td>
-
-                {{ratio2['vitamin_e']//3}}%
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Magnesium
-              </td>
-              <td>
-                {{ratio2['magnesium']//3}}%
-              </td>
-              <td>
-                Vitamin K
-              </td>
-              <td>
-
-                {{ratio2['vitamin_k']//3}}%
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Manganese
-              </td>
-              <td>
-                {{ratio2['manganese']//3}}%
-              </td>
-              <td>
-                Riboflavin
-              </td>
-              <td>
-
-                {{ratio2['riboflavin']//3}}%
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Molybdenum
-              </td>
-              <td>
-                {{ratio2['molybdenum']//3}}%
-              </td>
-              <td>
-                Niacin
-              </td>
-              <td>
-
-                {{ratio2['niacin']//3}}%
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Phosphorus
-              </td>
-              <td>
-                {{ratio2['phosphorus']//3}}%
-              </td>
-              <td>
-                Folate
-              </td>
-              <td>
-
-                {{ratio2['folate']//3}}%
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Selenium
-              </td>
-              <td>
-                {{ratio2['selenium']//3}}%
-              </td>
-              <td>
-                Pantothenic
-              </td>
-              <td>
-
-                {{ratio2['pantothenic']//3}}%
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Sulfur
-              </td>
-              <td>
-                {{ratio2['sulfur']//3}}%
-              </td>
-              <td>
-                Biotin
-              </td>
-              <td>
-                {{ratio2['biotin']//3}}%
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Zinc
-              </td>
-              <td>
-                {{ratio2['zinc']//3}}%
-              </td>
-              <td>
-              </td>
-              <td>
-              </td>
-            </tr>
-          </tbody>
-
-        </table>
-      </section>
-    </div>
-    <div class="col-md-8">
-      <h1>{{session['name'].partition(' ')[0].upper()}}'S PERSONALIZED SANI</h1>
-      <div id="saniPicture"></div>
-      <div id="ingredientTable"></div>
-
-      <h3>Free shipping, personalized nutrition plan and multiple flavors.</h3>
-      <!-- <form action="/buy" method="POST">
+        <h3>Free shipping, personalized nutrition plan and multiple flavors.</h3>
+        <h4>Buy your Sani today, starting at $4 per meal. It comes in four flavors, you choose at checkout.</h4>
+        <!-- <form action="/buy" method="POST">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
 
         <div class="col-md-6">
@@ -383,14 +382,14 @@
 
         <div class="order-amount order-item"></div>
       </div> -->
-      <div class="col-md-6">
-        <a href="https://app.moonclerk.com/pay/2050dbrpay9"><img alt=“Buy mySani” src="https://s3.amazonaws.com/moonclerk/buttons/buy-now.png" /></a>
+        <a href="https://app.moonclerk.com/pay/2050dbrpay9" class="btn custom-btn">Buy Now</a>
+        <h5>Have your own nutrition plan and need custom macros? Just shoot us an email after you order and we'll make that happen.</h5>
         <!-- <a href='https://www.expeditedssl.com/simple-ssl-scanner/scan?target_domain=build.mysani.com' target='_blank'><img src='https://www.expeditedssl.com/ssl-secure-badge.png'  alt='Expedited SSL Scanner'></a> -->
+        <!-- </form> -->
+        <!-- </div> -->
       </div>
-      </form>
-    <!-- </div> -->
+    </div>
   </div>
-</div>
 </div>
 
 {% else %}
@@ -424,9 +423,7 @@
           {{ ingredientform.nutrient2(placeholder="nutrient2", class="form-control", id = "nutrientHtmlJson2", rows="1", style="width:100%") }}
         </div>
 
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-
-        {{ ingredientform.submit(class="btn custom-btn") }}
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" /> {{ ingredientform.submit(class="btn custom-btn") }}
       </form>
     </div>
   </div>
@@ -456,6 +453,7 @@
     {% if calories %} {"nutrientTargets": {"calories": {{calories}}, "protein": {{protein}}, "fat": {{fat}}, "carbs": {{carbs}}, "name": "{{email}}","gender": "{{gender}}", "age": {{age}} }} {% endif %}
   </textarea>
 </div>
+
 
 {#
 <!--
@@ -607,10 +605,7 @@
 
     </div>
     -->
-#}
-
-{% endblock %}
-{% block scripts %}
+#} {% endblock %} {% block scripts %}
 
 <script type="text/javascript" src="static/js/ui.js"></script>
 
