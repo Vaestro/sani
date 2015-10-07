@@ -18,27 +18,10 @@ CsrfProtect(app)
 sslify = SSLify(app)
 db = SQLAlchemy(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://sanilife:sanilife@sanidb.c2pz7qitscgg.us-west-2.rds.amazonaws.com:3306/sanidb'
-
-# Uncomment the line below if you want to work with a local DB
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-
 ######################################################################
 
-db.init_app(app)
-with app.app_context():
-    # Extensions like Flask-SQLAlchemy now know what the "current" app
-    # is while within this block. Therefore, you can now run........
-    db.create_all()
-
-# stripe_keys = {
-#     'secret_key': os.environ['SECRET_KEY'],
-#     'publishable_key': os.environ['PUBLISHABLE_KEY']
-# }
-#
-# stripe.api_key = stripe_keys['secret_key']
-
 bootstrap = Bootstrap(app)
+
 
 @app.route('/index', methods=['GET', 'POST'])
 #@login_required
@@ -509,48 +492,20 @@ def user():
                 db.session.commit()
 
             return render_template('index.html', calories=TDEE,  protein=protein,
-                                   fat=fat, carbs=carbs, gender=session['gender'], age=session['age'],
+                                   fat=fat, carbs=carbs, gender=session[
+                                       'gender'], age=session['age'],
                                    email=email, ingredientform=ingredientform,
                                    ingredientJsonLoads=ingredientJsonLoads, nutrientMerge=nutrientMerge,
-                                   ratio=ratio, ratio2=ratio2, ratioJson1=str(ratioJson1),
+                                   ratio=ratio, ratio2=ratio2, ratioJson1=str(
+                                       ratioJson1),
                                    ratioJson2=str(ratioJson2))
 
     else:
         return render_template('user.html', form=form)
 
-
-# @app.route('/buy', methods=['POST'])
-# def buy():
-    # quantity = request.form['quantity']
-    # amount = request.form['amount']
-    # email = request.form['email']
-    # token = request.form['stripeToken']
-    #
-    # customer = stripe.Customer.create(
-    #     email=email,
-    #     source=token
-    # )
-    #
-    # charge = stripe.Charge.create(
-    #     customer=customer.id,
-    #     amount=amount,
-    #     currency='usd',
-    #     description='Sani Checkout'
-    # )
-#
-#     order = SaniOrder(
-#         uuid=str(uuid.uuid4()),
-#         email=email,
-#         quantity=quantity,
-#         amount=amount
-#     )
-#
-#     db.session.add(order)
-#     db.session.commit()
-#
-#     return render_template('buy.html', amount=amount)
-
 # Test the connection of MySQL
+
+
 @app.route('/testdb')
 def testdb():
     if db.session.query("1").from_statement("SELECT 1").all():
